@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FIleHandler {
+public class FileHandler {
 
     //writing list into JSON file
     public static void write(LinkedList<Transfers> lst, String FileName){

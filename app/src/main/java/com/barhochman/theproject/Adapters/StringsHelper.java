@@ -8,11 +8,15 @@ public class StringsHelper {
     public StringsHelper(Context context){
         FilePath = context.getFilesDir().getPath() + "/";
         incomeFile = FilePath  + context.getResources().getString(R.string.IncomesFileName);
-        outcomeFIle = FilePath + context.getResources().getString(R.string.OutcomesFileName);
+        outcomeFile = FilePath + context.getResources().getString(R.string.OutcomesFileName);
     }
 
-    public String getOutcomeFIle() {
-        return outcomeFIle;
+    public class StringFile{
+
+    }
+
+    public String getOutcomeFile() {
+        return outcomeFile;
     }
 
     public String getIncomeFile() {
@@ -26,6 +30,6 @@ public class StringsHelper {
 
     private String FilePath;
     private String incomeFile;
-    private String outcomeFIle;
+    private String outcomeFile;
 
 }
