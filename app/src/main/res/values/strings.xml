@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TheProject</string>
+    <string name="IncomesFileName">incomes.json</string>
+    <string name="OutcomesFileName">outcomes.json</string>
+
+    <string name="Category">category</string>
+    <string name="Amount">amount</string>
+</resources>
