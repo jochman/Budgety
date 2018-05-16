@@ -1,7 +1,7 @@
 package com.barhochman.theproject.Nodes;
 
 public class Transfers {
-    public Transfers(String name, double amount, String category) {
+    public Transfers(String name, Double amount, String category) {
         this.name = name;
         this.category = category;
         this.amount = amount;
@@ -29,7 +29,7 @@ public class Transfers {
         this.category = category;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 

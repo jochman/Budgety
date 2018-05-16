@@ -16,7 +16,8 @@ public class IOHandler {
     }
 
     private void goTo(Context context,Fragment newFragment) {
-        ((Activity) context).getFragmentManager().beginTransaction().replace(R.id.container, newFragment).addToBackStack(context.getClass().getName()).commit();
+
+        ((Activity) context).getFragmentManager().beginTransaction().replace(R.id.fragment_container, newFragment).addToBackStack(context.getClass().getName()).commit();
     }
 
     //private static Context context;

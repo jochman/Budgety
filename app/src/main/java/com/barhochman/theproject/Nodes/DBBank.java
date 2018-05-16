@@ -5,12 +5,28 @@ import android.content.Context;
 import com.barhochman.theproject.Adapters.FileHandler;
 import com.barhochman.theproject.Adapters.StringsHelper;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DBBank {
+public class DBBank implements Serializable{
     private static List<Transfers> incomes;
     private static Double incomes_Total;
     private static List<Transfers> outcomes;
+    private static Double outcomes_Total;
+    private static Double total;
+
+    public DBBank(Context context){
+        // Initialize variables
+        incomes = FileHandler.read(StringsHelper.getIncomeFile());
+        outcomes = FileHandler.read(StringsHelper.getOutcomeFile());
+
+
+        //initialize totals
+        incomes_Total = sumCalc(incomes, 0.0);
+        outcomes_Total = sumCalc(outcomes, 0.0);
+
+        total = incomes_Total - outcomes_Total;
+    }
 
     public static List<Transfers> getIncomes() {
         return incomes;
@@ -44,19 +60,7 @@ public class DBBank {
         DBBank.outcomes_Total = outcomes_Total;
     }
 
-    private static Double outcomes_Total;
-
-    public DBBank(Context context){
-        // Initialize variables
-        StringsHelper stringsHelper = new StringsHelper(context);
-        incomes = FileHandler.read(stringsHelper.getIncomeFile());
-        outcomes = FileHandler.read(stringsHelper.getOutcomeFile());
-
-
-        //initialize totals
-        incomes_Total = sumCalc(incomes, 0.0);
-        outcomes_Total = sumCalc(outcomes, 0.0);
-    }
+    public static Double getTotal(){return total;}
 
     private static Double sumCalc(List<Transfers> lst, Double sum) {
         if (!lst.isEmpty()) {
@@ -66,4 +70,5 @@ public class DBBank {
         }
         return sum;
     }
+
 }
