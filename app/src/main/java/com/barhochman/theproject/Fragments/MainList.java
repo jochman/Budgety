@@ -1,6 +1,7 @@
 package com.barhochman.theproject.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,14 +53,12 @@ public class MainList extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param dbBank Bank of Database.
      * @return A new instance of fragment MainList.
      */
     // TODO: Rename and change types and number of parameters
-    public static MainList newInstance(DBBank dbBank) {
+    public static MainList newInstance() {
         MainList fragment = new MainList();
         Bundle args = new Bundle();
-        args.putSerializable(DBBANK_PARAM1, dbBank);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +67,6 @@ public class MainList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //dbBank =(DBBank) getArguments().getSerializable(DBBANK_PARAM1);
 
         }
     }
@@ -91,19 +89,43 @@ public class MainList extends Fragment {
         incomesView.setLayoutManager(inLayoutManager);
         outcomesView.setLayoutManager(outLayoutManager);
 
+        incomesView.setBackgroundColor(Color.parseColor("#86b24f"));
+        outcomesView.setBackgroundColor(Color.parseColor("#c40824"));
+
         // add adapters
         incomesAdapter = new RecAdapter(DBBank.getIncomes());
+        //incomesAdapter.setColor("#86b24f");
         outcomesAdapter = new RecAdapter(DBBank.getOutcomes());
+        //outcomesAdapter.setColor("#c40824");
 
         incomesView.setAdapter(incomesAdapter);
         outcomesView.setAdapter(outcomesAdapter);
 
-        //incomesView.setBackground();
+        invalidate();
 
-        ((TextView)fragmentView.findViewById(R.id.totalSpent)).setText(StringsHelper.numberFormatter(DBBank.getTotal()));
 
         // Inflate the layout for this fragment
         return fragmentView;
+    }
+
+    private void invalidate() {
+        TextView total = fragmentView.findViewById(R.id.totalSpent);
+        total.setText(StringsHelper.numberFormatter(DBBank.getTotal()));
+        if (DBBank.getTotal() < 0){
+            fragmentView.findViewById(R.id.top_total).setBackgroundColor(Color.parseColor("#c40824"));
+        }else{
+            fragmentView.findViewById(R.id.top_total).setBackgroundColor(Color.parseColor("#86b24f"));
+        }
+    }
+
+    public void updateUI(Object object){
+
+        if (object instanceof String){
+            String str = (String) object;
+            if (str.equals(StringsHelper.UpdateUI.getTotalUpdated())){
+                invalidate();
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

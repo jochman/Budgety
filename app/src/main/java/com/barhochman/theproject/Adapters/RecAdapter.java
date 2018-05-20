@@ -1,5 +1,6 @@
 package com.barhochman.theproject.Adapters;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +16,15 @@ import java.util.List;
 
 public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
     List<Transfers> lst;
+    private Integer color;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public CardView cardView;
+        private CardView cardView;
+
         public TextView category, name, amount;
         public ViewHolder(View v) {
             super(v);
@@ -38,15 +41,14 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
     }
 
     // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
     public RecAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card, parent, false);
-
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -55,14 +57,15 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
+        //holder.cardView.setBackgroundColor(Color.green(1));
         // - number format
         Transfers t = lst.get(position);
+
+        if (color != null) { holder.cardView.setBackgroundColor(color); }
 
         holder.amount.setText(StringsHelper.numberFormatter(t.getAmount()));
         holder.name.setText(t.getName());
         holder.category.setText(t.getCategory());
-
-
 
     }
 
@@ -70,5 +73,10 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
     @Override
     public int getItemCount() {
         return lst.size();
+    }
+
+    //color setter
+    public void setColor(String colorString){
+        color = Color.parseColor(colorString);
     }
 }

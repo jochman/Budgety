@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,7 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.barhochman.theproject.Adapters.FileHandler;
+import com.barhochman.theproject.Adapters.IOHandler;
 import com.barhochman.theproject.Adapters.StringsHelper;
+import com.barhochman.theproject.Fragments.AddTransfer;
 import com.barhochman.theproject.Fragments.MainList;
 import com.barhochman.theproject.Nodes.DBBank;
 import com.barhochman.theproject.Nodes.Transfers;
@@ -37,24 +39,26 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainList.OnMainListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainList.OnMainListFragmentInteractionListener, AddTransfer.OnFragmentInteractionListener {
 
     final int RC_SIGN_IN = 100;
+
+    public FragmentManager getCustomFragmentManager(){
+        return getSupportFragmentManager();
+    }
 
     //TAG
     String TAG = "Bar ";
 
-    //nodes
-    public static DBBank dbBank;
 
     //google API
     GoogleSignInClient mGoogleSignInClient;
     static GoogleSignInAccount acct;
-    private DriveResourceClient mDriveResourceClient;
-    private DriveClient mDriveClient;
+    static DriveResourceClient mDriveResourceClient;
+    static DriveClient mDriveClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +71,7 @@ public class DrawerActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                IOHandler.FragmentSwapper(getCustomFragmentManager(), R.layout.fragment_add_transfer);
             }
         });
 
@@ -94,17 +97,17 @@ public class DrawerActivity extends AppCompatActivity
         code for qa
          */
 
-        LinkedList<Transfers> tempInc = new LinkedList<Transfers>();
-        LinkedList<Transfers> tempOut = new LinkedList<Transfers>();
+        ArrayList<Transfers> tempInc = new ArrayList<Transfers>();
+        ArrayList<Transfers> tempOut = new ArrayList<Transfers>();
         tempInc.add(new Transfers("bar", 500.0, "pleasure"));
         tempInc.add(new Transfers("bar", 500.0, "pleasure"));
         tempInc.add(new Transfers("bar", 500.0, "pleasure"));
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
-        tempInc.add(new Transfers("bar", 500.0, "pleasure"));
-        tempInc.add(new Transfers("bar", 500.0, "pleasure"));
-        tempInc.add(new Transfers("bar", 500.0, "pleasure"));
+
+
+
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
@@ -114,9 +117,9 @@ public class DrawerActivity extends AppCompatActivity
          */
 
         FileHandler.write(tempInc, StringsHelper.getIncomeFile());
-        FileHandler.write(tempInc, StringsHelper.getOutcomeFile());
+        FileHandler.write(tempOut, StringsHelper.getOutcomeFile());
 
-        dbBank = new DBBank(this);
+        new DBBank(this);
 
         //initialize main fragment
         Fragment fragment = new MainList();
@@ -281,7 +284,8 @@ public class DrawerActivity extends AppCompatActivity
 
     }
 
-    public static DBBank getDbBank() {
-        return dbBank;
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

@@ -3,8 +3,9 @@
     <string name="IncomesFileName">incomes.json</string>
     <string name="OutcomesFileName">outcomes.json</string>
 
-    <string name="Category">category</string>
-    <string name="Amount">amount</string>
+    <string name="transfer_name">Name</string>
+    <string name="Category">Category</string>
+    <string name="Amount">Amount</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

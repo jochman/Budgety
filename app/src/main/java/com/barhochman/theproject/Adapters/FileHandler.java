@@ -13,13 +13,11 @@ import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class FileHandler {
 
     //writing list into JSON file
-    public static void write(LinkedList<Transfers> lst, String FileName){
+    public static void write(ArrayList<Transfers> lst, String FileName){
 
         File f = new File(FileName);
 
@@ -33,7 +31,7 @@ public class FileHandler {
     }
 
     //reading from JSON and returning list
-    public static List<Transfers> read(String FileName){
+    public static ArrayList<Transfers> read(String FileName){
 
         File  f = new File(FileName);
 
@@ -44,6 +42,6 @@ public class FileHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new LinkedList<>();
+        return new ArrayList<>();
     }
 }

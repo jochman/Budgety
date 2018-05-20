@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainFragmentId"
     tools:context=".Fragments.MainList">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,6 +18,7 @@
             android:layout_height="125dp">
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/top_total"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

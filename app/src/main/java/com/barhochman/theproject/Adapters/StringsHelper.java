@@ -51,5 +51,17 @@ public class StringsHelper {
 
     }
 
+    public static class  UpdateUI{
+        private static final String totalUpdated;
+
+        public static String getTotalUpdated() {
+            return totalUpdated;
+        }
+
+        static {
+            totalUpdated = "totalUpdate";
+        }
+    }
+
 
 }

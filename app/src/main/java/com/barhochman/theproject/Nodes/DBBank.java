@@ -6,12 +6,13 @@ import com.barhochman.theproject.Adapters.FileHandler;
 import com.barhochman.theproject.Adapters.StringsHelper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DBBank implements Serializable{
-    private static List<Transfers> incomes;
+    private static ArrayList<Transfers> incomes;
     private static Double incomes_Total;
-    private static List<Transfers> outcomes;
+    private static ArrayList<Transfers> outcomes;
     private static Double outcomes_Total;
     private static Double total;
 
@@ -28,11 +29,12 @@ public class DBBank implements Serializable{
         total = incomes_Total - outcomes_Total;
     }
 
+
     public static List<Transfers> getIncomes() {
         return incomes;
     }
 
-    public static void setIncomes(List<Transfers> incomes) {
+    public static void setIncomes(ArrayList<Transfers> incomes) {
         DBBank.incomes = incomes;
     }
 
@@ -48,7 +50,7 @@ public class DBBank implements Serializable{
         return outcomes;
     }
 
-    public static void setOutcomes(List<Transfers> outcomes) {
+    public static void setOutcomes(ArrayList<Transfers> outcomes) {
         DBBank.outcomes = outcomes;
     }
 
@@ -69,6 +71,19 @@ public class DBBank implements Serializable{
             }
         }
         return sum;
+    }
+
+    public static void addIncome(Transfers t){
+        incomes.add(t);
+        FileHandler.write(incomes, StringsHelper.StringFile.getIncomeFile());
+        incomes_Total += t.getAmount();
+        total += t.getAmount();
+    }
+
+    public static void addOutcome(Transfers t){
+        incomes.add(t);
+        incomes_Total += t.getAmount();
+        total -= t.getAmount();
     }
 
 }
