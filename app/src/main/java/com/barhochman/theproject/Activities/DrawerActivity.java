@@ -86,8 +86,12 @@ public class DrawerActivity extends AppCompatActivity
 
         //google sign in
         mGoogleSignInClient = buildGoogleSignInClient();
-        Task<GoogleSignInAccount> Task = GoogleSignIn.getSignedInAccountFromIntent(mGoogleSignInClient.getSignInIntent());
+
+        updateViewWithGoogleSignInAccountTask(GoogleSignIn.getSignedInAccountFromIntent(mGoogleSignInClient.getSignInIntent()));
+
         acct = GoogleSignIn.getLastSignedInAccount(this);
+
+
 
         //initialize income/outcomes
         StringsHelper stringsHelper = new StringsHelper(this);

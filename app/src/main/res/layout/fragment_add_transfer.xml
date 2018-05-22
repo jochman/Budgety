@@ -94,7 +94,8 @@
                         android:id="@+id/transfer_edit_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Enter record's amount" />
+                        android:hint="Enter record's amount"
+                        android:inputType="number|numberSigned|numberDecimal" />
                 </android.support.design.widget.TextInputLayout>
 
             </TableRow>

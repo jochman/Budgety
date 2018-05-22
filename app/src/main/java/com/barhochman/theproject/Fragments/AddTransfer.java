@@ -108,17 +108,25 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.submit_button){
+            try{
             Transfers t = new Transfers(name.getText().toString(), Double.parseDouble(amount.getText().toString()), category.getText().toString());
 
-            switch (radioButton.getCheckedRadioButtonId()){
+            switch (radioButton.getCheckedRadioButtonId()) {
                 case R.id.income_radio:
                     DBBank.addIncome(t);
-                    getFragmentManager().popBackStackImmediate();
+                    if (getFragmentManager() != null) {
+                        getFragmentManager().popBackStackImmediate();
+                    }
                     break;
                 case R.id.outcome_radio:
                     DBBank.addIncome(t);
-                    getFragmentManager().popBackStackImmediate();
+                    if (getFragmentManager() != null) {
+                        getFragmentManager().popBackStackImmediate();
+                    }
                     break;
+            }
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
             //MainList mainList = (MainList)getFragmentManager().findFragmentById(R.id.mainFragmentId);
