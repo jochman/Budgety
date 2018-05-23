@@ -1,9 +1,11 @@
 package com.barhochman.theproject.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -40,6 +42,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainList.OnMainListFragmentInteractionListener, AddTransfer.OnFragmentInteractionListener {
@@ -132,6 +135,22 @@ public class DrawerActivity extends AppCompatActivity
 
 
 
+    }
+
+    public void invalidate(){
+        try {
+            //totals update
+            //TextView total = Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.mainFragmentId).getView()).findViewById(R.id.totalSpent);
+            ConstraintLayout back = Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.mainFragmentId).getView()).findViewById(R.id.top_total);
+            //total.setText(StringsHelper.numberFormatter(DBBank.getTotal()));
+            if (DBBank.getTotal() < 0) {
+                back.findViewById(R.id.top_total).setBackgroundColor(Color.parseColor("#c40824"));
+            } else {
+                back.findViewById(R.id.top_total).setBackgroundColor(Color.parseColor("#86b24f"));
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @Override

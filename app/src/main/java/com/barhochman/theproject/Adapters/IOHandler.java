@@ -43,7 +43,7 @@ public class IOHandler {
     public static void back(FragmentManager fragmentManager){
         fragmentManager.popBackStackImmediate();
     }
-    public static String lastAdded;
 
+    private static String lastAdded;
 
 }

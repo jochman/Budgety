@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
+import com.barhochman.theproject.Activities.DrawerActivity;
 import com.barhochman.theproject.Nodes.DBBank;
 import com.barhochman.theproject.Nodes.Transfers;
 import com.barhochman.theproject.R;
@@ -22,15 +23,17 @@ import com.barhochman.theproject.R;
  * Use the {@link AddTransfer#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddTransfer extends Fragment implements View.OnClickListener {
 
-    TextInputEditText name, category, amount;
-    RadioGroup radioButton;
+public class AddTransfer extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    // Other fragment / activity parameters
+    DrawerActivity drawerActivity;
+    MainList mainList;
+    TextInputEditText name, category, amount;
+    RadioGroup radioButton;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -81,6 +84,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
         return view;
     }
 
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -97,6 +101,8 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        drawerActivity = (context instanceof DrawerActivity) ? (DrawerActivity) context : null;
     }
 
     @Override
@@ -107,31 +113,31 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.submit_button){
-            try{
-            Transfers t = new Transfers(name.getText().toString(), Double.parseDouble(amount.getText().toString()), category.getText().toString());
+        if (v.getId() == R.id.submit_button) {
+            try {
+                Transfers t = new Transfers(name.getText().toString(), Double.parseDouble(amount.getText().toString()), category.getText().toString());
 
-            switch (radioButton.getCheckedRadioButtonId()) {
-                case R.id.income_radio:
-                    DBBank.addIncome(t);
-                    if (getFragmentManager() != null) {
-                        getFragmentManager().popBackStackImmediate();
-                    }
-                    break;
-                case R.id.outcome_radio:
-                    DBBank.addIncome(t);
-                    if (getFragmentManager() != null) {
-                        getFragmentManager().popBackStackImmediate();
-                    }
-                    break;
-            }
-            }catch (Exception e){
+                switch (radioButton.getCheckedRadioButtonId()) {
+                    case R.id.income_radio:
+                        DBBank.addIncome(t);
+                        if (getFragmentManager() != null) {
+                            getFragmentManager().popBackStackImmediate();
+                        }
+                        break;
+                    case R.id.outcome_radio:
+                        DBBank.addIncome(t);
+                        if (getFragmentManager() != null) {
+                            getFragmentManager().popBackStackImmediate();
+                        }
+                        break;
+                }
+                drawerActivity.invalidate();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             //MainList mainList = (MainList)getFragmentManager().findFragmentById(R.id.mainFragmentId);
             //mainList.updateUI(StringsHelper.UpdateUI.getTotalUpdated());
-
 
 
         }

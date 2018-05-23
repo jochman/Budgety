@@ -31,14 +31,14 @@ public class MainList extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String DBBANK_PARAM1 = "dbbank";
+    //private static final String DBBANK_PARAM1 = "dbbank";
     //incomes/outcomes recycler view
     RecyclerView incomesView, outcomesView;
     LinearLayoutManager inLayoutManager, outLayoutManager;
     RecAdapter incomesAdapter, outcomesAdapter;
 
 
-    // TODO: Rename and change types of parameters
+    // Other fragment / activity parameters
 
     private OnMainListFragmentInteractionListener mListener;
 
@@ -109,6 +109,8 @@ public class MainList extends Fragment {
     }
 
     private void invalidate() {
+
+        //totals update
         TextView total = fragmentView.findViewById(R.id.totalSpent);
         total.setText(StringsHelper.numberFormatter(DBBank.getTotal()));
         if (DBBank.getTotal() < 0){
