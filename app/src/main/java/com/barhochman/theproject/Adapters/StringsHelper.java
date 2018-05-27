@@ -26,7 +26,7 @@ public class StringsHelper {
         return format.format(num);
     }
 
-    public String getFilePath() {
+    public static String getFilePath() {
         return StringFile.FilePath;
     }
 
@@ -60,6 +60,23 @@ public class StringsHelper {
 
         static {
             totalUpdated = "totalUpdate";
+        }
+
+    }
+
+    public static class fragmentTag{
+        private static String mainList, addTransfer;
+        static {
+            mainList = "mailList";
+            addTransfer = "addTransfer";
+        }
+
+        public static String getMainList() {
+            return mainList;
+        }
+
+        public static String getAddTransfer() {
+            return addTransfer;
         }
     }
 

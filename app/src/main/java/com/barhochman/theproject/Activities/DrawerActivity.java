@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.barhochman.theproject.Adapters.FileHandler;
 import com.barhochman.theproject.Adapters.IOHandler;
@@ -60,17 +61,17 @@ public class DrawerActivity extends AppCompatActivity
     //google API
     GoogleSignInClient mGoogleSignInClient;
     static GoogleSignInAccount acct;
-    static DriveResourceClient mDriveResourceClient;
-    static DriveClient mDriveClient;
+    DriveResourceClient mDriveResourceClient;
+    DriveClient mDriveClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,13 +79,13 @@ public class DrawerActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //google sign in
@@ -97,15 +98,15 @@ public class DrawerActivity extends AppCompatActivity
 
 
         //initialize income/outcomes
-        StringsHelper stringsHelper = new StringsHelper(this);
+        new StringsHelper(this);
 
 
         /*
         code for qa
          */
 
-        ArrayList<Transfers> tempInc = new ArrayList<Transfers>();
-        ArrayList<Transfers> tempOut = new ArrayList<Transfers>();
+        ArrayList<Transfers> tempInc = new ArrayList<>();
+        ArrayList<Transfers> tempOut = new ArrayList<>();
         tempInc.add(new Transfers("bar", 500.0, "pleasure"));
         tempInc.add(new Transfers("bar", 500.0, "pleasure"));
         tempInc.add(new Transfers("bar", 500.0, "pleasure"));
@@ -131,7 +132,7 @@ public class DrawerActivity extends AppCompatActivity
         //initialize main fragment
         Fragment fragment = new MainList();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment, "mainlist").commit();
 
 
 
@@ -139,10 +140,10 @@ public class DrawerActivity extends AppCompatActivity
 
     public void invalidate(){
         try {
+            Fragment total = Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag(StringsHelper.fragmentTag.getMainList()));
             //totals update
-            //TextView total = Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.mainFragmentId).getView()).findViewById(R.id.totalSpent);
-            ConstraintLayout back = Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.mainFragmentId).getView()).findViewById(R.id.top_total);
-            //total.setText(StringsHelper.numberFormatter(DBBank.getTotal()));
+            //((TextView) Objects.requireNonNull(total.getView()).findViewById(R.id.totalSpent)).setText(StringsHelper.numberFormatter(DBBank.getTotal()));
+            ConstraintLayout back = Objects.requireNonNull(total.getView()).findViewById(R.id.top_total);
             if (DBBank.getTotal() < 0) {
                 back.findViewById(R.id.top_total).setBackgroundColor(Color.parseColor("#c40824"));
             } else {
@@ -153,9 +154,18 @@ public class DrawerActivity extends AppCompatActivity
         }
     }
 
+    public void floatingBarShow(Boolean b){
+        FloatingActionButton fab = findViewById(R.id.fab);
+        if ((b)) {
+            fab.hide();
+        } else {
+            fab.show();
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -187,7 +197,7 @@ public class DrawerActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem  item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -205,7 +215,7 @@ public class DrawerActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

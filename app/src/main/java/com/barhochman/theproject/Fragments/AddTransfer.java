@@ -3,6 +3,7 @@ package com.barhochman.theproject.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -72,7 +73,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_transfer, container, false);
@@ -80,6 +81,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
         category = view.findViewById(R.id.transfer_edit_cat);
         amount = view.findViewById(R.id.transfer_edit_amount);
         radioButton = view.findViewById(R.id.income_outcomes_radios);
+
         view.findViewById(R.id.submit_button).setOnClickListener(this);
         return view;
     }

@@ -15,7 +15,7 @@ import com.barhochman.theproject.R;
 import java.util.List;
 
 public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
-    List<Transfers> lst;
+    private List<Transfers> lst;
     private Integer color;
 
     // Provide a reference to the views for each data item
