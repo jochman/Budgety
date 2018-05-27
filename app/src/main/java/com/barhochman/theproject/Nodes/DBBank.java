@@ -42,7 +42,7 @@ public class DBBank implements Serializable{
         return incomes_Total;
     }
 
-    public static void setIncomes_Total(Double incomes_Total) {
+    private static void setIncomes_Total(Double incomes_Total) {
         DBBank.incomes_Total = incomes_Total;
     }
 
@@ -81,8 +81,9 @@ public class DBBank implements Serializable{
     }
 
     public static void addOutcome(Transfers t){
-        incomes.add(t);
-        incomes_Total += t.getAmount();
+        outcomes.add(t);
+        FileHandler.write(outcomes, StringsHelper.StringFile.getOutcomeFile());
+        outcomes_Total += t.getAmount();
         total -= t.getAmount();
     }
 

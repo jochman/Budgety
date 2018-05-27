@@ -71,7 +71,7 @@ public class DrawerActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,7 @@ public class DrawerActivity extends AppCompatActivity
 
         /*
         code for qa
-         */
+
 
         ArrayList<Transfers> tempInc = new ArrayList<>();
         ArrayList<Transfers> tempOut = new ArrayList<>();
@@ -120,19 +120,19 @@ public class DrawerActivity extends AppCompatActivity
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
         tempOut.add(new Transfers("bar", 500.0, "pleasure"));
 
-        /*
+
         end of qa
-         */
+
 
         FileHandler.write(tempInc, StringsHelper.getIncomeFile());
         FileHandler.write(tempOut, StringsHelper.getOutcomeFile());
-
+        */
         new DBBank(this);
 
         //initialize main fragment
         Fragment fragment = new MainList();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment, "mainlist").commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment, StringsHelper.fragmentTag.getMainList()).commit();
 
 
 
@@ -142,7 +142,7 @@ public class DrawerActivity extends AppCompatActivity
         try {
             Fragment total = Objects.requireNonNull(getSupportFragmentManager().findFragmentByTag(StringsHelper.fragmentTag.getMainList()));
             //totals update
-            //((TextView) Objects.requireNonNull(total.getView()).findViewById(R.id.totalSpent)).setText(StringsHelper.numberFormatter(DBBank.getTotal()));
+            ((TextView) Objects.requireNonNull(total.getView()).findViewById(R.id.totalSpent)).setText(StringsHelper.numberFormatter(DBBank.getTotal()));
             ConstraintLayout back = Objects.requireNonNull(total.getView()).findViewById(R.id.top_total);
             if (DBBank.getTotal() < 0) {
                 back.findViewById(R.id.top_total).setBackgroundColor(Color.parseColor("#c40824"));
@@ -156,10 +156,14 @@ public class DrawerActivity extends AppCompatActivity
 
     public void floatingBarShow(Boolean b){
         FloatingActionButton fab = findViewById(R.id.fab);
-        if ((b)) {
-            fab.hide();
-        } else {
-            fab.show();
+        try {
+            if (!b) {
+                fab.hide();
+            } else {
+                fab.show();
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
     }
 
@@ -170,6 +174,7 @@ public class DrawerActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            floatingBarShow(true);
         }
     }
 

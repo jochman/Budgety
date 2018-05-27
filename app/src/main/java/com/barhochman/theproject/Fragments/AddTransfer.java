@@ -105,6 +105,11 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
         }
 
         drawerActivity = (context instanceof DrawerActivity) ? (DrawerActivity) context : null;
+        try{
+            ((DrawerActivity) context).floatingBarShow(false);
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -117,6 +122,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.submit_button) {
             try {
+                drawerActivity.floatingBarShow(true);
                 Transfers t = new Transfers(name.getText().toString(), Double.parseDouble(amount.getText().toString()), category.getText().toString());
 
                 switch (radioButton.getCheckedRadioButtonId()) {
@@ -127,7 +133,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
                         }
                         break;
                     case R.id.outcome_radio:
-                        DBBank.addIncome(t);
+                        DBBank.addOutcome(t);
                         if (getFragmentManager() != null) {
                             getFragmentManager().popBackStackImmediate();
                         }

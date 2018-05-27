@@ -94,9 +94,7 @@ public class MainList extends Fragment {
 
         // add adapters
         incomesAdapter = new RecAdapter(DBBank.getIncomes());
-        //incomesAdapter.setColor("#86b24f");
         outcomesAdapter = new RecAdapter(DBBank.getOutcomes());
-        //outcomesAdapter.setColor("#c40824");
 
         incomesView.setAdapter(incomesAdapter);
         outcomesView.setAdapter(outcomesAdapter);
