@@ -9,7 +9,7 @@
     tools:context=".Fragments.MainList">
 
 
-        <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="125dp">
 
@@ -43,29 +43,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/totalSpent" />
 
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/totalSpent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_menu_add" />
+
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.RecyclerView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/incomes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal" />
+
+        <android.support.v7.widget.RecyclerView
                 android:id="@+id/outcomes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/incomes"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal" />
-        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

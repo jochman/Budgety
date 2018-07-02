@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.barhochman.theproject.Adapters.IOHandler;
 import com.barhochman.theproject.Adapters.RecAdapter;
 import com.barhochman.theproject.Adapters.StringsHelper;
 import com.barhochman.theproject.Nodes.DBBank;
@@ -79,6 +81,7 @@ public class MainList extends Fragment {
         //set incomes/outcomes view
         incomesView = fragmentView.findViewById(R.id.incomes);
         outcomesView = fragmentView.findViewById(R.id.outcomes);
+
         //improving performance
         incomesView.setHasFixedSize(true);
         outcomesView.setHasFixedSize(true);
@@ -98,6 +101,14 @@ public class MainList extends Fragment {
 
         incomesView.setAdapter(incomesAdapter);
         outcomesView.setAdapter(outcomesAdapter);
+
+        final FloatingActionButton fab = fragmentView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IOHandler.FragmentSwapper(getFragmentManager(), R.layout.fragment_add_transfer);
+            }
+        });
 
         invalidate();
 

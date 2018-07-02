@@ -48,8 +48,12 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card, parent, false);
+        v.setOnLongClickListener(LongPressListener);
         return new ViewHolder(v);
     }
+
+    private final View.OnLongClickListener LongPressListener = new onLongPressListener();
+
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
@@ -78,5 +82,12 @@ public class RecAdapter extends RecyclerView.Adapter<RecAdapter.ViewHolder>  {
     //color setter
     public void setColor(String colorString){
         color = Color.parseColor(colorString);
+    }
+
+    private class onLongPressListener implements View.OnLongClickListener {
+        @Override
+        public boolean onLongClick(View v) {
+            return false;
+        }
     }
 }

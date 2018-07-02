@@ -1,5 +1,6 @@
 package com.barhochman.theproject.Adapters;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -30,14 +31,17 @@ public class IOHandler {
             case R.layout.fragment_main_list:
                 fragment = new MainList();
                 id = mainID;
+                fragmentManager.beginTransaction().add(R.id.container, fragment, id).addToBackStack(lastAdded).commit();
                 break;
             case R.layout.fragment_add_transfer:
-                fragment = new AddTransfer();
+                //fragment = new AddTransfer();
+                DialogFragment dfrag = new AddTransfer();
                 id = addID;
+                dfrag.show(fragmentManager, id);
                 break;
         }
-        if (fragment != null){
-            fragmentManager.beginTransaction().add(R.id.container, fragment, id).addToBackStack(lastAdded).commit();}
+        /*if (fragment != null){
+            fragmentManager.beginTransaction().add(R.id.container, fragment, id).addToBackStack(lastAdded).commit();}*/
     }
 
     public static void back(FragmentManager fragmentManager){

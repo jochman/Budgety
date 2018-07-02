@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.barhochman.theproject.R;
  * create an instance of this fragment.
  */
 
-public class AddTransfer extends Fragment implements View.OnClickListener {
+public class AddTransfer extends DialogFragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -106,7 +107,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
 
         drawerActivity = (context instanceof DrawerActivity) ? (DrawerActivity) context : null;
         try{
-            ((DrawerActivity) context).floatingBarShow(false);
+            //((DrawerActivity) context).floatingBarShow(false);
         }catch (ClassCastException e){
             e.printStackTrace();
         }
@@ -122,7 +123,7 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.submit_button) {
             try {
-                drawerActivity.floatingBarShow(true);
+                //drawerActivity.floatingBarShow(true);
                 Transfers t = new Transfers(name.getText().toString(), Double.parseDouble(amount.getText().toString()), category.getText().toString());
 
                 switch (radioButton.getCheckedRadioButtonId()) {
@@ -166,4 +167,5 @@ public class AddTransfer extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

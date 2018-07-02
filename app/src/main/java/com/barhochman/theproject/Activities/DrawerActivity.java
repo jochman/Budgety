@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,16 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.barhochman.theproject.Adapters.FileHandler;
-import com.barhochman.theproject.Adapters.IOHandler;
 import com.barhochman.theproject.Adapters.StringsHelper;
 import com.barhochman.theproject.Fragments.AddTransfer;
 import com.barhochman.theproject.Fragments.MainList;
 import com.barhochman.theproject.Nodes.DBBank;
-import com.barhochman.theproject.Nodes.Transfers;
 import com.barhochman.theproject.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -42,7 +37,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class DrawerActivity extends AppCompatActivity
@@ -71,13 +65,6 @@ public class DrawerActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IOHandler.FragmentSwapper(getCustomFragmentManager(), R.layout.fragment_add_transfer);
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -127,6 +114,7 @@ public class DrawerActivity extends AppCompatActivity
         FileHandler.write(tempInc, StringsHelper.getIncomeFile());
         FileHandler.write(tempOut, StringsHelper.getOutcomeFile());
         */
+
         new DBBank(this);
 
         //initialize main fragment
@@ -154,7 +142,7 @@ public class DrawerActivity extends AppCompatActivity
         }
     }
 
-    public void floatingBarShow(Boolean b){
+    /*public void floatingBarShow(Boolean b){
         FloatingActionButton fab = findViewById(R.id.fab);
         try {
             if (!b) {
@@ -176,7 +164,7 @@ public class DrawerActivity extends AppCompatActivity
             super.onBackPressed();
             floatingBarShow(true);
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
